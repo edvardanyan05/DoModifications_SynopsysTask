@@ -1,59 +1,4 @@
-#include <iostream>
-#include <string>
-using namespace std;
-
-string creat_correct_string(string &s){
-    string correct_string;
-    
-    for(size_t i = 0; i < s.size(); i++)
-        if(s[i] != ' ' && s[i] != '\t' && s[i] != '\n') 
-             correct_string.push_back(s[i]);
-    return correct_string;
-}
-
-bool isDigit(const char c){
-    if (c >= '0' && c <= '9')
-        return true;
-    return false;
-}
-
-bool isValidSTR(const string &s){
-    if (s.empty())
-        return false;
-
-    int bracket_count = 0;
-
-    if(s[0] == '*' || s[0] == '/')
-        return false;
-
-    for(size_t i = 0; i < s.size(); i++){
-        if (isDigit(s[i]))
-            continue;
-        if(s[i] == '('){
-            bracket_count++;
-            if(i + 1 < s.size() && s[i + 1] == ')')
-                return false;
-            continue ;
-        }
-        if(s[i] == ')'){
-            bracket_count--;
-            if (bracket_count < 0)
-                return false;
-            continue;
-        }
-        if (s[i] == '+' || s[i] == '-' || s[i] == '*' || s[i] == '/') {
-            if (i + 1 >= s.size())
-                return false;
-            if (!((isDigit(s[i + 1])) || s[i + 1] == '('))
-                return false;
-            continue;
-        }
-        return false;
-    }
-    if (bracket_count != 0)
-            return false;
-    return true;
-}
+#include "main.hpp"
 
 string createSubSTR_bracket(const char *p){
     string substr;
@@ -88,44 +33,11 @@ string delete_brackets(const string &s){
 
 
 
-long long toDigit(const string &s){
-    long long num = 0;
-    
-    for(size_t i = 0; i < s.size(); i++){
-        num *= 10;
-        num += s[i] - '0';
-    } 
-    return num;
-}
 
-long long calculate_simpleSTR(const string &s){
-    long long res = 0;
-    long long current = 0;
-    int sign = 1;
 
-    for(size_t i = 0; i <= s.size(); i++){
-        if(i < s.size() && isdigit(s[i])){
-            current = current * 10 + (s[i] - '0');
-        }
-        else{
-            res += sign * current;
-            current = 0;
 
-            if(i < s.size()){
-                if(s[i] == '-') sign = -1;
-                else sign = 1;
-            }
-        }
-    }
-    return res;
-}
 
-bool isPureSTR(const string &s){
-    for(size_t i = 0; i < s.size(); i++)
-        if (s[i] == '*' || s[i] == '/')
-            return false;
-    return true;
-}
+
 
 string toString(long long num){
     if (num == 0) return "0";
@@ -222,7 +134,7 @@ int main(int argc, char *argv[]){
         return 1;
     }
 
-    string str = creat_correct_string(argv[1]);
+    string str = create_correct_string(argv[1]);
 
     if(!isValidSTR(str)){
         cout << "ERROR!!! You entered wrong string\n";
