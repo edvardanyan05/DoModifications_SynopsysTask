@@ -13,6 +13,7 @@ int main(int argc, char *argv[]){
     }
 
     string str = create_correct_string(argv[1]);
+    //vector <char> params;
 
     if(!isValidSTR(str)){
         cout << "ERROR!!! You entered wrong string\n";
