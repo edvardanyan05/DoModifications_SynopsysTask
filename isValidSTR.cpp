@@ -1,6 +1,7 @@
 // In this file, I implemented logic to validate a cleaned string (without spaces, tabs, or newlines).
 // It checks:
 // - Whether the first character is '*' or '/'.
+// - Whether there are different parameters or not.
 // - Whether the parentheses are balanced.
 // - Whether the parentheses are not empty.
 // - Whether a number or '(' appears after an operator.
@@ -12,7 +13,7 @@ bool isValidSTR(const string &s){
         return false;
 
     int bracket_count = 0;
-
+    char param = '\0';
     if(s[0] == '*' || s[0] == '/')
         return false;
 
@@ -20,12 +21,14 @@ bool isValidSTR(const string &s){
         if (isDigit(s[i]))
             continue;
         if (isLetter(s[i])){
-            if (i == 0 && isOperator(s[1]))
+            if(param == '\0'){
+                param = s[i];
                 continue;
-            if (i = s.size() - 1 && isOperator(s[i - 1]))
+            }else if (param != s[i]){
+                return false;
+            }else if(param == s[i]){
                 continue;
-            if (isOperator(s[i - 1]) && isOperator(s[i + 1]))
-                continue;
+            }
             return false;
         }
         if(s[i] == '('){
